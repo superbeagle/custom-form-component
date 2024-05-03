@@ -163,6 +163,8 @@ export default {
 
 ### Add custom styles
 
+Note: Not used in this example. Left in for documentation purposes
+
 We define custom styles for the range component by adding a simple CSS file [`styles.css`](./app/extension/render/styles.css). For the example we import the styles directly to the component as we have a bundler ([webpack](https://webpack.js.org/)) in place that adds the styles to the application.
 
 ```css
@@ -216,6 +218,7 @@ export class CustomPropertiesProvider {
   }
 }
 ```
+Note: Not used in this example. Left in for documentation purposes
 
 The [`RangeEntries`](./app/extension/properties-panel/CustomPropertiesProvider.js) function returns the entries to show for the range component. Check out the full provider to gather more insights.
 
