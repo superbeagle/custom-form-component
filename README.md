@@ -9,20 +9,6 @@ This example uses [form-js](https://github.com/bpmn-io/form-js) to implement cus
 In this example we extend form-js with a custom component that allows users to select a number from a range. To achieve that we will walk through the following steps:
 
 * Add a custom form component renderer
-* Add custom styles for the range component
-* Add custom properties panel entries to specify the min, max and step of the range
-
-An example schema of the range component looks like this:
-
-```json
-{
-  "type": "range",
-  "label": "Range",
-  "min": 0,
-  "max": 100,
-  "step": 1
-}
-```
 
 ### Add a custom form component renderer
 
@@ -30,16 +16,23 @@ The first step is to add a custom form component renderer.
 
 The renderer is responsible for rendering the component in the form editor and the form preview. It also handles the interaction with the component, e.g. when the value changes or validation.
 
-We create the [`RangeRenderer`](./app/extension/render/Gantt.js) which defines a couple of things
+We create the [`GanttRenderer`](./app/extension/render/Gantt.js) which defines a couple of things
 
 * a [preact](https://preactjs.com/) component that renders the component in the form editor and preview by re-using existing components like `Label`, `Errors` and `Description`
 
 ```js
+import classNames from 'classnames';
+
+/*
+ * Import components and utilities from our extension API. Warning: for demo experiments only.
+ */
 import {
   Errors,
   FormContext,
+  Default,
   Description,
-  Label
+  Label,
+  Table
 } from '@bpmn-io/form-js';
 
 import {
@@ -47,81 +40,105 @@ import {
   useContext
 } from 'diagram-js/lib/ui';
 
-export function RangeRenderer(props) {
+import './styles.css';
+
+import GanttIcon from './gantt.svg';
+
+export const ganttType = 'gantt';
+
+/*
+ * This is the rendering part of the custom field. We use `htm` to
+ * to render our components without the need of extra JSX transpilation.
+ */
+export function GanttRenderer(props) {
 
   const {
-    disabled,
     errors = [],
-    field,
-    readonly,
-    value
+    field
   } = props;
 
   const {
     description,
-    range = {},
     id,
     label
   } = field;
-
-  const {
-    min,
-    max,
-    step
-  } = range;
 
   const { formId } = useContext(FormContext);
 
   const errorMessageId = errors.length === 0 ? undefined : `${prefixId(id, formId)}-error-message`;
 
-  const onChange = ({ target }) => {
-    props.onChange({
-      field,
-      value: Number(target.value)
-    });
-  };
+  setTimeout(setGantt, 50, props, prefixId(id, formId));
 
-  return html`<div class=${ formFieldClasses(rangeType) }>
-    <${Label}
-      id=${ prefixId(id, formId) }
-      label=${ label } />
-    <div class="range-group">
-      <input
-        type="range"
-        disabled=${ disabled }
-        id=${ prefixId(id, formId) }
-        max=${ max }
-        min=${ min }
-        onInput=${ onChange }
-        readonly=${ readonly }
-        value=${ value }
-        step=${ step } />
-      <div class="range-value">${ value }</div>
-    </div>
-    <${Description} description=${ description } />
-    <${Errors} errors=${ errors } id=${ errorMessageId } />
-  </div>`;
+  function setGantt(props, divSuffix) {
+
+    let fieldName = props.field.dataSource.substring(1);
+    let myMap = new Map(Object.entries(props.value));
+    let tasks = myMap.get(fieldName);
+
+    let divId = '#gantt-' + divSuffix;
+
+    console.log('divId is ' + divId);
+
+    let gantt = new Gantt(divId, tasks, {
+      header_height: 50,
+      column_width: 30,
+      step: 24,
+      view_modes: [ "Quarter Day", "Half Day", "Day", "Week", "Month" ],
+      bar_height: 20,
+      bar_corner_radius: 3,
+      arrow_curve: 5,
+      padding: 18,
+      view_mode: "Day",
+      date_format: "YYYY-MM-DD",
+      language: "en", // or 'es', 'it', 'ru', 'ptBr', 'fr', 'tr', 'zh', 'de', 'hu'
+      custom_popup_html: null,
+    });
+  }
+
+  /* We use `htm` to
+  * to render our components without the need of extra JSX transpilation.
+
+   */
+
+  return html`
+      <head>
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.6.1/frappe-gantt.min.js"></script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.6.1/frappe-gantt.css"></script>
+
+          <script type="text/javascript">
+              ${setTimeout}
+          </script>
+      </head>
+      <body>
+      <${ Label } htmlFor=${ prefixId(id) } label=${ label } />
+      <div id="gantt-${prefixId(id, formId)}"></div>
+      </body>`;
 }
 ```
 
-* a component `config` that extends the base `Numberfield` configuration and adds customizations as the icon, a custom label and the default properties panel entries to show
+* a component `config` that extends the base `Table` configuration and adds customizations as the icon, a custom label and the default properties panel entries to show
 
 ```js
-import { Numberfield } from '@bpmn-io/form-js';
 
-RangeRenderer.config = {
-  ...Numberfield.config,
-  type: rangeType,
-  label: 'Range',
-  iconUrl: `data:image/svg+xml,${ encodeURIComponent(RangeIcon) }`,
+
+/*
+ * This is the configuration part of the custom field. It defines
+ * the schema type, UI label and icon, palette group, properties panel entries
+ * and much more.
+ */
+GanttRenderer.config = {
+
+  /* we can extend the default configuration of existing fields */
+  ...Table.config,
+  type: ganttType,
+  label: 'Gantt chart',
+  group: 'presentation',
+  iconUrl: `data:image/svg+xml,${ encodeURIComponent(GanttIcon) }`,
   propertiesPanelEntries: [
-    'key',
+    'field',
     'label',
     'description',
-    'min',
-    'max',
-    'disabled',
-    'readonly'
+    'dataSource'
   ]
 };
 ```
@@ -133,7 +150,7 @@ We use the `formFields` service to register our custom renderer for the `range` 
 ```js
 class CustomFormFields {
   constructor(formFields) {
-    formFields.register('range', RangeRenderer);
+    formFields.register('range', GanttRenderer);
   }
 }
 
