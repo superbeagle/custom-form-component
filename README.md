@@ -182,6 +182,8 @@ We define custom styles for the range component by adding a simple CSS file [`st
 
 ### Add custom properties panel entries
 
+Note: Not used in this example. Left in for documentation purposes
+
 With `config.propertiesPanelEntries` we define the default properties panel entries to show for the component. We can also add custom entries to the properties panel.
 
 We add a [`CustomPropertiesProvider`](./app/extension/properties-panel/CustomPropertiesProvider.js) that allows users to specify the min, max and step of the range component. We place the group right after the general group.
