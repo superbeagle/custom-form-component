@@ -311,3 +311,18 @@ Spin up a development setup by executing
 ```
 npm run dev
 ```
+
+## Bar Chart uses API calls to json-server
+
+[json-server](https://www.npmjs.com/package/json-server) was used to serve up data to the Bar Chart component and uses db.json as the local repository. 
+Install and run json-server
+
+```
+npm install json-server
+```
+
+To run json-server with db.json as its repo, execute
+
+```
+npx json-server db.json
+```
