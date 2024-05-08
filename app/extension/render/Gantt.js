@@ -19,7 +19,7 @@ import {
 
 import './styles.css';
 
-import GanttIcon from './gantt.svg';
+import GanttIcon from './Gantt-chart-icon.svg';
 
 export const ganttType = 'gantt';
 
@@ -48,21 +48,13 @@ export function GanttRenderer(props) {
 
   function setGantt(props, divSuffix) {
 
-    console.log('looking for info ' + JSON.stringify(props));
-    console.log('datasource is ' + JSON.stringify(props.field.dataSource));
-
     let fieldName = props.field.dataSource.substring(1);
-
-    console.log('datasource corrected is ' + fieldName);
-
     let myMap = new Map(Object.entries(props.value));
     let tasks = myMap.get(fieldName);
 
     let divId = '#gantt-' + divSuffix;
 
     console.log('divId is ' + divId);
-
-    //if (tasks != null) {
 
       let gantt = new Gantt(divId, tasks, {
         header_height: 50,
@@ -78,12 +70,6 @@ export function GanttRenderer(props) {
         language: "en", // or 'es', 'it', 'ru', 'ptBr', 'fr', 'tr', 'zh', 'de', 'hu'
         custom_popup_html: null,
       });
-    /*} else {
-      var myTimeout = setTimeout(wait, 100);
-      document.getElementById(divId).innerHTML = 'Nothing to show';
-    }
-
-     */
   }
 
   /* We use `htm` to

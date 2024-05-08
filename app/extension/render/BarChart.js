@@ -21,7 +21,7 @@ import './styles.css';
 
 import Plotly from './ploty.min.js';
 
-import GanttIcon from './gantt.svg';
+import BarChartIcon from './Bar-chart-icon.svg';
 
 export const barchartType = 'barchart';
 
@@ -117,7 +117,7 @@ BarChartRenderer.config = {
   type: barchartType,
   label: 'Bar chart',
   group: 'presentation',
-  iconUrl: `data:image/svg+xml,${ encodeURIComponent(GanttIcon) }`,
+  iconUrl: `data:image/svg+xml,${ encodeURIComponent(BarChartIcon) }`,
   propertiesPanelEntries: [
     'field',
     'label',
