@@ -1,0 +1,57 @@
+{
+  "posts": [
+    { "id": "1", "title": "Sales Report 2022", "chartValue": [ 
+       {
+        "x": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        "y": [20, 14, 25, 16, 18, 22, 19, 15, 12, 16, 14, 17],
+        "type": "bar",
+        "name": "Primary Product",
+        "marker": {
+          "color": "rgb(49,130,189)",
+          "opacity": 0.7
+        }
+    },
+      {
+        "x": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        "y": [19, 14, 22, 14, 16, 19, 15, 14, 10, 12, 12, 16],
+        "type": "bar",
+        "name": "Secondary Product",
+        "marker": {
+          "color": "rgb(204,204,204)",
+          "opacity": 0.5
+        }
+      }
+    ]
+    },
+    { "id": "2", "title": "Sales Report 2023", "chartValue": [ 
+       {
+        "x": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        "y": [15, 30, 5, 40, 20, 22, 19, 35, 30, 27, 14, 17],
+        "type": "bar",
+        "name": "Primary Product",
+        "marker": {
+          "color": "rgb(50, 168, 82)",
+          "opacity": 0.7
+        }
+    },
+      {
+        "x": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        "y": [2, 4, 10, 3, 18, 18, 11, 35, 40, 25, 32, 16],
+        "type": "bar",
+        "name": "Secondary Product",
+        "marker": {
+          "color": "rgb(204,204,204)",
+          "opacity": 0.5
+        }
+      }
+    ]
+    }
+  ],
+  "comments": [
+    { "id": "1", "text": "a comment about post 1", "postId": "1" },
+    { "id": "2", "text": "another comment about post 1", "postId": "1" }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
