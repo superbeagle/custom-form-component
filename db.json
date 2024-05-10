@@ -47,6 +47,33 @@
     ]
     }
   ],
+  "camundi": [
+    { 
+      "id": "1", "title": "Worldwide Camundi", "chartValue": [{
+        "type": "scattergeo",
+        "mode": "markers",
+        "locations": ["DEU", "USA", "GBR", "NLD", "IRL", "FRA", "ESP", "AUS", "ITA", "SGP", "CHE", "CAN", "BRA", "POL", "ROU", "AUT", "HRV", "CZE", "GRC", "ZAF", "BEL", "CYP", "EGY", "FIN", "HUN", "IND", "NZL", "PHL", "PRT", "SWE", "ARE"],
+        "text": ["Germany", "USA", "UK", "Netherlands", "Ireland", "France", "Spain", "Australia", "Italy", "Singapore", "Switzerland", "Canada", "Brazil", "Poland", "Romania", "Austria", "Croatia", "Czechia", "Greece", "South Africa", "Belgium", "Cyprus", "Egypt", "Finland", "Hungary", "India", "New Zealand", "Philippines", "Portugal", "Sweden", "UAE"],
+        "hovertemplate": "<b>%{text}</b>",
+        "marker": {
+            "size": [37.41, 28.71, 6.59, 5.18, 3.53, 2.82, 2.59, 5, 1.41, 1.18, 1.18, 5, 5, 0.71,  0.71, 0.47, 0.47, 0.47, 0.47, 5, 0.24, 0.24, 5, 0.24, 0.24, 5, 5, 0.24, 0.24, 0.24, 5],
+            "color": [37.41, 28.71, 6.59, 5.18, 3.53, 2.82, 2.59, 1.41, 1.41, 1.18, 1.18, 0.94, 0.71, 0.71, 0.71, 0.47, 0.47, 0.47, 0.47, 0.47, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24],
+            "cmin": 0,
+            "cmax": 40,
+            "symbol": "star",
+            "colorscale": "Jet",
+            "colorbar": {
+                "title": "Camundi",
+                "ticksuffix": "%"
+            },
+            "line": {
+                "color": "black"
+            }
+        },
+        "name": ""
+    }] 
+    }
+  ],
   "comments": [
     { "id": "1", "text": "a comment about post 1", "postId": "1" },
     { "id": "2", "text": "another comment about post 1", "postId": "1" }
